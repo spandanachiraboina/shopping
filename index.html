@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VOGUE THREAD — Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0e8;
+      --ink: #1a1510;
+      --warm: #c8a96e;
+      --rust: #b05c3a;
+      --muted: #8a7d6b;
+      --light: #ede8de;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 4rem;
+      background: rgba(245,240,232,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200,169,110,0.2);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 600; letter-spacing: 0.25em;
+      color: var(--ink); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--ink); text-decoration: none;
+      position: relative; padding-bottom: 2px;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 1px; background: var(--warm);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active { color: var(--rust); }
+    .nav-actions { display: flex; gap: 1.2rem; align-items: center; }
+    .nav-actions button {
+      background: none; border: none; cursor: pointer;
+      font-size: 1.2rem; color: var(--ink); transition: color 0.3s;
+    }
+    .nav-actions button:hover { color: var(--rust); }
+    .cart-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--rust); color: #fff;
+      border-radius: 50%; width: 18px; height: 18px;
+      font-size: 0.65rem; font-weight: 500;
+      position: relative; top: -8px; left: -6px;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+      overflow: hidden;
+    }
+    .hero-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 4rem 4rem 6rem;
+      position: relative;
+    }
+    .hero-tag {
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--warm); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .hero-tag::before {
+      content: ''; display: block; width: 40px; height: 1px; background: var(--warm);
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-weight: 300; line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 2rem;
+    }
+    .hero-title em { font-style: italic; color: var(--rust); }
+    .hero-desc {
+      font-size: 0.95rem; line-height: 1.8; color: var(--muted);
+      max-width: 380px; margin-bottom: 3rem;
+    }
+    .hero-btns { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--ink); color: var(--cream);
+      padding: 0.9rem 2.4rem;
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      border: none; cursor: pointer;
+      text-decoration: none; display: inline-block;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--rust); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent; color: var(--ink);
+      padding: 0.9rem 2.4rem;
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      border: 1px solid var(--ink); cursor: pointer;
+      text-decoration: none; display: inline-block;
+      transition: all 0.3s;
+    }
+    .btn-outline:hover { background: var(--ink); color: var(--cream); }
+
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 4rem;
+      padding-top: 2rem; border-top: 1px solid rgba(138,125,107,0.2);
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 600; color: var(--ink);
+    }
+    .stat-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    .hero-visual {
+      position: relative; overflow: hidden;
+      background: var(--light);
+    }
+    .hero-img-wrap {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #e8dfd0 0%, #d4c5b0 50%, #c2b09a 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .hero-img-wrap::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a09080' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-mannequin {
+      font-size: 14rem; opacity: 0.15; user-select: none;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
+    .hero-label {
+      position: absolute; bottom: 3rem; right: 3rem;
+      background: var(--ink); color: var(--cream);
+      padding: 1.2rem 1.6rem; font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-style: italic;
+    }
+    .hero-label span { display: block; font-family: 'DM Sans', sans-serif; font-style: normal; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm); margin-top: 0.3rem; }
+
+    /* MARQUEE */
+    .marquee-wrap {
+      background: var(--ink); padding: 1rem 0; overflow: hidden;
+    }
+    .marquee {
+      display: flex; gap: 4rem; white-space: nowrap;
+      animation: marquee 20s linear infinite;
+    }
+    .marquee span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-style: italic; color: var(--warm);
+      flex-shrink: 0;
+    }
+    .marquee span::after { content: ' ✦'; }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* CATEGORIES */
+    .section { padding: 6rem 4rem; }
+    .section-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 3.5rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 300;
+    }
+    .section-title em { font-style: italic; color: var(--rust); }
+    .section-link {
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      border-bottom: 1px solid var(--muted); padding-bottom: 2px;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .section-link:hover { color: var(--rust); border-color: var(--rust); }
+
+    .cat-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+    }
+    .cat-card {
+      position: relative; overflow: hidden; cursor: pointer;
+      aspect-ratio: 3/4;
+      transition: transform 0.4s;
+    }
+    .cat-card:hover { transform: scale(1.02); }
+    .cat-card:hover .cat-overlay { opacity: 1; }
+    .cat-bg {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem;
+      transition: transform 0.5s;
+    }
+    .cat-card:hover .cat-bg { transform: scale(1.08); }
+    .cat-card:nth-child(1) .cat-bg { background: linear-gradient(160deg, #d4c5b0, #b8a896); }
+    .cat-card:nth-child(2) .cat-bg { background: linear-gradient(160deg, #c5b5a0, #a89080); }
+    .cat-card:nth-child(3) .cat-bg { background: linear-gradient(160deg, #b8d0c8, #9ab8b0); }
+    .cat-card:nth-child(4) .cat-bg { background: linear-gradient(160deg, #d8c8b8, #c0a890); }
+    .cat-overlay {
+      position: absolute; inset: 0;
+      background: rgba(26,21,16,0.5);
+      display: flex; align-items: flex-end;
+      padding: 1.5rem; opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .cat-info { color: #fff; }
+    .cat-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 400; font-style: italic;
+      display: block; margin-bottom: 0.3rem;
+    }
+    .cat-count { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm); }
+
+    .cat-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: rgba(26,21,16,0.75); color: #fff;
+      padding: 1rem 1.2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-style: italic;
+      pointer-events: none;
+    }
+
+    /* FEATURED */
+    .featured-grid {
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2rem;
+    }
+    .product-card {
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .product-card:hover { transform: translateY(-4px); }
+    .product-img {
+      width: 100%; aspect-ratio: 3/4; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; position: relative; margin-bottom: 1.2rem;
+    }
+    .product-card:nth-child(1) .product-img { background: linear-gradient(135deg, #e0d4c4, #c8b89a); }
+    .product-card:nth-child(2) .product-img { background: linear-gradient(135deg, #c4d0d8, #a8b8c4); }
+    .product-card:nth-child(3) .product-img { background: linear-gradient(135deg, #d8c4c0, #c0a8a4); }
+    .product-badge {
+      position: absolute; top: 1rem; left: 1rem;
+      background: var(--rust); color: #fff;
+      font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+    }
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 400; margin-bottom: 0.3rem;
+    }
+    .product-cat { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.6rem; }
+    .product-price { font-size: 1rem; color: var(--ink); font-weight: 500; }
+    .product-price del { color: var(--muted); margin-right: 0.5rem; font-weight: 300; }
+    .product-actions {
+      display: flex; gap: 0.7rem; margin-top: 1rem;
+    }
+    .btn-cart {
+      flex: 1; background: var(--ink); color: var(--cream);
+      border: none; padding: 0.75rem; cursor: pointer;
+      font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+      transition: background 0.3s;
+    }
+    .btn-cart:hover { background: var(--rust); }
+    .btn-wish {
+      background: transparent; border: 1px solid var(--ink);
+      padding: 0.75rem; cursor: pointer; font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .btn-wish:hover { background: var(--ink); color: var(--cream); }
+
+    /* PROMO BANNER */
+    .promo {
+      margin: 0 4rem 6rem;
+      background: var(--ink);
+      display: grid; grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+    .promo-text {
+      padding: 4rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .promo-tag {
+      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--warm); margin-bottom: 1.5rem;
+    }
+    .promo-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 300; color: var(--cream);
+      line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    .promo-title em { font-style: italic; color: var(--warm); }
+    .promo-desc { color: rgba(245,240,232,0.6); font-size: 0.9rem; line-height: 1.7; margin-bottom: 2.5rem; }
+    .btn-light {
+      background: var(--warm); color: var(--ink);
+      padding: 0.9rem 2.4rem; display: inline-block;
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.3s; width: fit-content;
+    }
+    .btn-light:hover { background: var(--cream); }
+    .promo-visual {
+      background: linear-gradient(135deg, #2a2218, #3a3025);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12rem; opacity: 0.6;
+      position: relative; overflow: hidden;
+    }
+    .promo-visual::after {
+      content: 'SALE';
+      position: absolute; right: -1rem; bottom: 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 6rem; font-weight: 600;
+      color: var(--warm); opacity: 0.15;
+      letter-spacing: -0.02em; transform: rotate(-90deg);
+      transform-origin: right bottom;
+    }
+
+    /* NEWSLETTER */
+    .newsletter {
+      padding: 5rem 4rem;
+      background: var(--light);
+      text-align: center;
+    }
+    .newsletter-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 300;
+      margin-bottom: 0.8rem;
+    }
+    .newsletter-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 2.5rem; }
+    .newsletter-form {
+      display: flex; max-width: 480px; margin: 0 auto; gap: 0;
+    }
+    .newsletter-form input {
+      flex: 1; padding: 1rem 1.5rem;
+      border: 1px solid rgba(138,125,107,0.4); border-right: none;
+      background: var(--cream); font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; color: var(--ink); outline: none;
+    }
+    .newsletter-form input::placeholder { color: var(--muted); }
+    .newsletter-form button {
+      background: var(--ink); color: var(--cream);
+      border: none; padding: 1rem 1.8rem;
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.3s; white-space: nowrap;
+    }
+    .newsletter-form button:hover { background: var(--rust); }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink); color: rgba(245,240,232,0.7);
+      padding: 4rem 4rem 2rem;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-brand .nav-logo { color: var(--cream); display: block; margin-bottom: 1rem; }
+    .footer-brand p { font-size: 0.85rem; line-height: 1.7; }
+    .footer-col h4 {
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--warm); margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.7rem; }
+    .footer-col ul li a {
+      color: rgba(245,240,232,0.6); text-decoration: none;
+      font-size: 0.85rem; transition: color 0.3s;
+    }
+    .footer-col ul li a:hover { color: var(--warm); }
+    .footer-bottom {
+      border-top: 1px solid rgba(245,240,232,0.1);
+      padding-top: 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78rem;
+    }
+    .social-links { display: flex; gap: 1rem; }
+    .social-links a {
+      color: rgba(245,240,232,0.5); text-decoration: none;
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .social-links a:hover { color: var(--warm); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .hero-text { padding: 5rem 2rem 3rem; }
+      .section { padding: 4rem 1.5rem; }
+      .cat-grid { grid-template-columns: repeat(2,1fr); }
+      .featured-grid { grid-template-columns: 1fr 1fr; }
+      .featured-grid .product-card:nth-child(1) { grid-column: span 2; }
+      .promo { margin: 0 1.5rem 4rem; grid-template-columns: 1fr; }
+      .promo-visual { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">VOGUE THREAD</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="products.html">Shop</a></li>
+    <li><a href="products.html">Collections</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button title="Search">🔍</button>
+    <button title="Wishlist">♡</button>
+    <button title="Cart">🛍<span class="cart-badge">3</span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-tag">Spring / Summer 2025</div>
+    <h1 class="hero-title">
+      Wear What<br>You <em>Truly</em><br>Are
+    </h1>
+    <p class="hero-desc">
+      Curated essentials and elevated basics for the modern wardrobe. Timeless pieces crafted from sustainable materials.
+    </p>
+    <div class="hero-btns">
+      <a href="products.html" class="btn-primary">Shop Now</a>
+      <a href="products.html" class="btn-outline">View Collection</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">2.4k+</div>
+        <div class="stat-label">Products</div>
+      </div>
+      <div>
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Satisfaction</div>
+      </div>
+      <div>
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Designers</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-img-wrap">
+      <div class="hero-mannequin">👗</div>
+      <div class="hero-label">
+        New Arrivals
+        <span>SS 2025 Collection</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span>Free Shipping Over ₹2999</span>
+    <span>Sustainable Fashion</span>
+    <span>New Collection SS25</span>
+    <span>Easy Returns</span>
+    <span>Exclusive Members Sale</span>
+    <span>Free Shipping Over ₹2999</span>
+    <span>Sustainable Fashion</span>
+    <span>New Collection SS25</span>
+    <span>Easy Returns</span>
+    <span>Exclusive Members Sale</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Shop by <em>Category</em></h2>
+    <a href="products.html" class="section-link">View All →</a>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card">
+      <div class="cat-bg">👔</div>
+      <div class="cat-label">Men's Wear</div>
+      <div class="cat-overlay">
+        <div class="cat-info">
+          <span class="cat-name">Men's Wear</span>
+          <span class="cat-count">340 Items</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-bg">👗</div>
+      <div class="cat-label">Women's Wear</div>
+      <div class="cat-overlay">
+        <div class="cat-info">
+          <span class="cat-name">Women's Wear</span>
+          <span class="cat-count">520 Items</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-bg">🧥</div>
+      <div class="cat-label">Outerwear</div>
+      <div class="cat-overlay">
+        <div class="cat-info">
+          <span class="cat-name">Outerwear</span>
+          <span class="cat-count">180 Items</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-bg">👟</div>
+      <div class="cat-label">Accessories</div>
+      <div class="cat-overlay">
+        <div class="cat-info">
+          <span class="cat-name">Accessories</span>
+          <span class="cat-count">290 Items</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section class="section" style="padding-top:0">
+  <div class="section-header">
+    <h2 class="section-title"><em>Featured</em> Pieces</h2>
+    <a href="products.html" class="section-link">View All →</a>
+  </div>
+  <div class="featured-grid">
+    <div class="product-card">
+      <div class="product-img">
+        <span>🧣</span>
+        <span class="product-badge">New</span>
+      </div>
+      <div class="product-cat">Women's / Knitwear</div>
+      <div class="product-name">Cashmere Blend Wrap Coat</div>
+      <div class="product-price">₹8,499</div>
+      <div class="product-actions">
+        <button class="btn-cart" onclick="addToCart(this)">Add to Bag</button>
+        <button class="btn-wish">♡</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">
+        <span>👕</span>
+        <span class="product-badge" style="background:var(--warm)">Sale</span>
+      </div>
+      <div class="product-cat">Men's / Essentials</div>
+      <div class="product-name">Classic Linen Shirt</div>
+      <div class="product-price"><del>₹2,199</del>₹1,499</div>
+      <div class="product-actions">
+        <button class="btn-cart" onclick="addToCart(this)">Add to Bag</button>
+        <button class="btn-wish">♡</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">
+        <span>👖</span>
+      </div>
+      <div class="product-cat">Women's / Bottoms</div>
+      <div class="product-name">Tailored Wide Leg Trousers</div>
+      <div class="product-price">₹3,799</div>
+      <div class="product-actions">
+        <button class="btn-cart" onclick="addToCart(this)">Add to Bag</button>
+        <button class="btn-wish">♡</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMO -->
+<div class="promo">
+  <div class="promo-text">
+    <div class="promo-tag">Limited Time Offer</div>
+    <h2 class="promo-title">Summer Sale<br><em>Up to 50% Off</em></h2>
+    <p class="promo-desc">Premium fabrics, thoughtful construction. Our sale collection features the season's most versatile pieces at exceptional prices.</p>
+    <a href="products.html" class="btn-light">Shop the Sale</a>
+  </div>
+  <div class="promo-visual">🌿</div>
+</div>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <h2 class="newsletter-title">Stay in the <em style="font-family:'Cormorant Garamond',serif;color:var(--rust)">Loop</em></h2>
+  <p class="newsletter-sub">New arrivals, exclusive offers, and style inspiration — direct to your inbox.</p>
+  <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+    <input type="email" placeholder="Your email address" required />
+    <button type="submit">Subscribe</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">VOGUE THREAD</a>
+      <p>Elevated fashion for the thoughtful dresser. Sustainable, timeless, and designed to last beyond seasons.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="products.html">New Arrivals</a></li>
+        <li><a href="products.html">Women</a></li>
+        <li><a href="products.html">Men</a></li>
+        <li><a href="products.html">Sale</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Shipping</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Vogue Thread. All rights reserved.</span>
+    <div class="social-links">
+      <a href="#">Instagram</a>
+      <a href="#">Pinterest</a>
+      <a href="#">Twitter</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function addToCart(btn) {
+    const badge = document.querySelector('.cart-badge');
+    badge.textContent = parseInt(badge.textContent) + 1;
+    btn.textContent = '✓ Added';
+    btn.style.background = '#5a7a5a';
+    setTimeout(() => {
+      btn.textContent = 'Add to Bag';
+      btn.style.background = '';
+    }, 1500);
+  }
+
+  function subscribeNewsletter(e) {
+    e.preventDefault();
+    const input = e.target.querySelector('input');
+    const btn = e.target.querySelector('button');
+    btn.textContent = '✓ Subscribed!';
+    btn.style.background = '#5a7a5a';
+    input.value = '';
+    setTimeout(() => {
+      btn.textContent = 'Subscribe';
+      btn.style.background = '';
+    }, 2500);
+  }
+
+  // Wishlist toggle
+  document.querySelectorAll('.btn-wish').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.textContent = btn.textContent === '♡' ? '♥' : '♡';
+      btn.style.color = btn.textContent === '♥' ? '#b05c3a' : '';
+      btn.style.borderColor = btn.textContent === '♥' ? '#b05c3a' : '';
+    });
+  });
+</script>
+</body>
+</html>
