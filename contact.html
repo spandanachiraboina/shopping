@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VOGUE THREAD — Contact</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #f5f0e8; --ink: #1a1510; --warm: #c8a96e;
+      --rust: #b05c3a; --muted: #8a7d6b; --light: #ede8de;
+    }
+    body { background: var(--cream); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 4rem;
+      background: rgba(245,240,232,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200,169,110,0.2);
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; letter-spacing: 0.25em; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink); text-decoration: none; position: relative; padding-bottom: 2px; transition: color 0.3s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--warm); transition: width 0.3s; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active { color: var(--rust); }
+    .nav-actions { display: flex; gap: 1.2rem; align-items: center; }
+    .nav-actions button { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: var(--ink); transition: color 0.3s; }
+    .nav-actions button:hover { color: var(--rust); }
+    .cart-badge { display: inline-flex; align-items: center; justify-content: center; background: var(--rust); color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 0.65rem; font-weight: 500; position: relative; top: -8px; left: -6px; }
+
+    /* PAGE HERO */
+    .contact-hero {
+      padding-top: 80px;
+      background: var(--ink);
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 380px; overflow: hidden;
+    }
+    .hero-left {
+      padding: 5rem 4rem 4rem 6rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .hero-tag {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--warm); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .hero-tag::before { content: ''; display: block; width: 30px; height: 1px; background: var(--warm); }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 300; color: var(--cream); line-height: 1.05; }
+    .hero-title em { font-style: italic; color: var(--warm); }
+    .hero-sub { color: rgba(245,240,232,0.55); font-size: 0.9rem; line-height: 1.7; margin-top: 1.5rem; max-width: 360px; }
+
+    .hero-right {
+      background: linear-gradient(135deg, #2a2218, #3a3025);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; font-size: 10rem; opacity: 0.4;
+    }
+    .hero-right::before {
+      content: 'GET IN\ATOUCH';
+      white-space: pre;
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem; font-weight: 600;
+      color: var(--warm); opacity: 0.06;
+      letter-spacing: -0.02em;
+      text-align: center;
+      line-height: 1;
+    }
+
+    /* MAIN */
+    .contact-main {
+      display: grid; grid-template-columns: 1fr 1.4fr;
+      gap: 0;
+    }
+
+    /* INFO PANEL */
+    .contact-info {
+      background: var(--light);
+      padding: 5rem 3rem 5rem 6rem;
+      border-right: 1px solid rgba(138,125,107,0.15);
+    }
+    .info-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 300; margin-bottom: 2.5rem;
+    }
+    .info-title em { font-style: italic; color: var(--rust); }
+
+    .info-card {
+      display: flex; gap: 1.2rem; margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(138,125,107,0.15);
+    }
+    .info-card:last-of-type { border-bottom: none; }
+    .info-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: var(--ink); color: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .info-label {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--warm); margin-bottom: 0.4rem;
+    }
+    .info-value { font-size: 0.9rem; line-height: 1.6; color: var(--ink); }
+    .info-value a { color: var(--ink); text-decoration: none; border-bottom: 1px solid rgba(138,125,107,0.4); transition: border-color 0.3s; }
+    .info-value a:hover { border-color: var(--rust); color: var(--rust); }
+
+    /* HOURS TABLE */
+    .hours-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+    .hours-table tr { border-bottom: 1px solid rgba(138,125,107,0.1); }
+    .hours-table td { padding: 0.5rem 0; font-size: 0.85rem; }
+    .hours-table td:last-child { text-align: right; color: var(--muted); }
+    .hours-table tr.today td { color: var(--rust); font-weight: 500; }
+
+    /* SOCIAL ROW */
+    .social-row { display: flex; gap: 0.8rem; margin-top: 2.5rem; }
+    .social-btn {
+      border: 1px solid rgba(138,125,107,0.3); padding: 0.6rem 1.1rem;
+      background: none; cursor: pointer; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink); transition: all 0.3s; font-family: 'DM Sans', sans-serif;
+      text-decoration: none; display: inline-block;
+    }
+    .social-btn:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+    /* CONTACT FORM */
+    .contact-form-wrap { padding: 5rem 5rem 5rem 4rem; }
+    .form-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; margin-bottom: 0.5rem; }
+    .form-title em { font-style: italic; color: var(--rust); }
+    .form-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 2.5rem; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-group.full { grid-column: span 2; }
+    .form-group label {
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--light); border: 1px solid rgba(138,125,107,0.2);
+      padding: 0.85rem 1rem; font-size: 0.9rem; color: var(--ink);
+      font-family: 'DM Sans', sans-serif; outline: none;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--warm); background: var(--cream);
+    }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(138,125,107,0.5); }
+
+    .form-topic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+    .topic-btn {
+      border: 1px solid rgba(138,125,107,0.25); background: none;
+      padding: 0.55rem 0.4rem; font-size: 0.72rem; letter-spacing: 0.08em; text-align: center;
+      cursor: pointer; color: var(--ink); transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+    }
+    .topic-btn:hover, .topic-btn.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+    .rating-group { display: flex; gap: 0.5rem; }
+    .rating-star { font-size: 1.4rem; cursor: pointer; color: rgba(138,125,107,0.3); transition: color 0.2s; }
+    .rating-star.active, .rating-star:hover { color: var(--warm); }
+
+    .form-check { display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.82rem; color: var(--muted); line-height: 1.5; margin-top: 0.5rem; }
+    .form-check input { accent-color: var(--rust); margin-top: 2px; flex-shrink: 0; }
+
+    .btn-submit {
+      width: 100%; background: var(--ink); color: var(--cream);
+      border: none; padding: 1rem;
+      font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;
+      cursor: pointer; margin-top: 1.5rem; font-family: 'DM Sans', sans-serif;
+      transition: background 0.3s, transform 0.2s; position: relative; overflow: hidden;
+    }
+    .btn-submit:hover { background: var(--rust); transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+    .btn-submit .spinner { display: none; }
+    .btn-submit.loading .spinner { display: inline; }
+    .btn-submit.loading .btn-text { display: none; }
+
+    /* SUCCESS STATE */
+    .success-msg {
+      display: none;
+      background: #edf4ed; border: 1px solid #7a9b7a;
+      padding: 2rem; text-align: center; margin-top: 1.5rem;
+    }
+    .success-msg.show { display: block; }
+    .success-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+    .success-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .success-text { font-size: 0.85rem; color: var(--muted); }
+
+    /* FAQ */
+    .faq-section {
+      background: var(--light); padding: 5rem 6rem;
+    }
+    .faq-header { text-align: center; margin-bottom: 3rem; }
+    .faq-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; }
+    .faq-title em { font-style: italic; color: var(--rust); }
+    .faq-sub { font-size: 0.88rem; color: var(--muted); margin-top: 0.8rem; }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .faq-item {
+      border: 1px solid rgba(138,125,107,0.2);
+      background: var(--cream); overflow: hidden;
+    }
+    .faq-q {
+      padding: 1.2rem 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .faq-q:hover { background: var(--light); }
+    .faq-icon { color: var(--warm); font-size: 1.1rem; transition: transform 0.3s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease;
+      font-size: 0.85rem; color: var(--muted); line-height: 1.7;
+    }
+    .faq-a-inner { padding: 0 1.5rem 1.2rem; }
+    .faq-item.open .faq-a { max-height: 200px; }
+
+    /* MAP PLACEHOLDER */
+    .map-section { background: var(--ink); padding: 0; overflow: hidden; height: 300px; position: relative; }
+    .map-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #1a1510, #2a2218, #1a1510);
+      display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1rem;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .map-pin { font-size: 3rem; }
+    .map-text { color: var(--warm); font-size: 1.2rem; font-style: italic; }
+    .map-sub { color: rgba(245,240,232,0.4); font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'DM Sans', sans-serif; }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: rgba(245,240,232,0.7); padding: 3rem 4rem 2rem; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; }
+    .social-links { display: flex; gap: 1rem; }
+    .social-links a { color: rgba(245,240,232,0.5); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s; }
+    .social-links a:hover { color: var(--warm); }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .contact-hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 4rem 1.5rem 3rem; }
+      .contact-main { grid-template-columns: 1fr; }
+      .contact-info { padding: 3rem 1.5rem; }
+      .contact-form-wrap { padding: 3rem 1.5rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: span 1; }
+      .form-topic-grid { grid-template-columns: repeat(2,1fr); }
+      .faq-section { padding: 3rem 1.5rem; }
+      .faq-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">VOGUE THREAD</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Shop</a></li>
+    <li><a href="products.html">Collections</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button title="Search">🔍</button>
+    <button title="Wishlist">♡</button>
+    <button title="Cart">🛍<span class="cart-badge">3</span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="contact-hero">
+  <div class="hero-left">
+    <div class="hero-tag">We're here to help</div>
+    <h1 class="hero-title">Let's <em>Talk</em><br>Fashion</h1>
+    <p class="hero-sub">Questions, feedback, styling advice — our team is ready to assist you. We typically respond within 24 hours.</p>
+  </div>
+  <div class="hero-right">📮</div>
+</div>
+
+<!-- MAIN -->
+<div class="contact-main">
+
+  <!-- INFO -->
+  <div class="contact-info">
+    <h2 class="info-title">Find <em>Us</em></h2>
+
+    <div class="info-card">
+      <div class="info-icon">📍</div>
+      <div>
+        <div class="info-label">Visit Us</div>
+        <div class="info-value">
+          12, Fashion Street, Jubilee Hills<br>
+          Hyderabad, Telangana 500033<br>
+          <a href="#">Get Directions →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon">📞</div>
+      <div>
+        <div class="info-label">Call Us</div>
+        <div class="info-value">
+          <a href="tel:+914012345678">+91 40 1234 5678</a><br>
+          <a href="tel:+919876543210">+91 98765 43210</a> (WhatsApp)
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon">✉️</div>
+      <div>
+        <div class="info-label">Email Us</div>
+        <div class="info-value">
+          <a href="mailto:hello@voguethread.in">hello@voguethread.in</a><br>
+          <a href="mailto:support@voguethread.in">support@voguethread.in</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon">🕐</div>
+      <div>
+        <div class="info-label">Store Hours</div>
+        <table class="hours-table">
+          <tr class="today"><td>Monday – Friday</td><td>10 AM – 9 PM</td></tr>
+          <tr><td>Saturday</td><td>10 AM – 10 PM</td></tr>
+          <tr><td>Sunday</td><td>11 AM – 8 PM</td></tr>
+          <tr><td>Public Holidays</td><td>12 PM – 6 PM</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="social-row">
+      <a href="#" class="social-btn">Instagram</a>
+      <a href="#" class="social-btn">Pinterest</a>
+      <a href="#" class="social-btn">Twitter</a>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="contact-form-wrap">
+    <h2 class="form-title">Send a <em>Message</em></h2>
+    <p class="form-sub">Fill in the form and our team will get back to you within 24 hours.</p>
+
+    <form id="contactForm" novalidate>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>First Name *</label>
+          <input type="text" placeholder="e.g. Priya" required id="firstName"/>
+        </div>
+        <div class="form-group">
+          <label>Last Name *</label>
+          <input type="text" placeholder="e.g. Sharma" required id="lastName"/>
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" placeholder="you@example.com" required id="email"/>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+91 98765 43210" id="phone"/>
+        </div>
+
+        <div class="form-group full">
+          <label>Topic</label>
+          <div class="form-topic-grid" id="topicGrid">
+            <button type="button" class="topic-btn active" onclick="selectTopic(this)">Order Enquiry</button>
+            <button type="button" class="topic-btn" onclick="selectTopic(this)">Returns & Refunds</button>
+            <button type="button" class="topic-btn" onclick="selectTopic(this)">Styling Advice</button>
+            <button type="button" class="topic-btn" onclick="selectTopic(this)">Wholesale</button>
+            <button type="button" class="topic-btn" onclick="selectTopic(this)">Press & Media</button>
+            <button type="button" class="topic-btn" onclick="selectTopic(this)">Other</button>
+          </div>
+        </div>
+
+        <div class="form-group full">
+          <label>Order Number (if applicable)</label>
+          <input type="text" placeholder="VT-2025-XXXXXX" id="orderNum"/>
+        </div>
+
+        <div class="form-group full">
+          <label>Message *</label>
+          <textarea placeholder="Tell us how we can help you..." required id="message"></textarea>
+        </div>
+
+        <div class="form-group full">
+          <label>Rate Your Last Experience</label>
+          <div class="rating-group" id="ratingGroup">
+            <span class="rating-star" onclick="setRating(1)">★</span>
+            <span class="rating-star" onclick="setRating(2)">★</span>
+            <span class="rating-star" onclick="setRating(3)">★</span>
+            <span class="rating-star" onclick="setRating(4)">★</span>
+            <span class="rating-star" onclick="setRating(5)">★</span>
+          </div>
+        </div>
+
+        <div class="form-group full">
+          <div class="form-check">
+            <input type="checkbox" id="newsletter" checked/>
+            <label for="newsletter">Subscribe to our newsletter for exclusive offers and new arrivals.</label>
+          </div>
+          <div class="form-check" style="margin-top:0.6rem">
+            <input type="checkbox" id="privacy" required/>
+            <label for="privacy">I agree to the <a href="#" style="color:var(--rust)">Privacy Policy</a> and <a href="#" style="color:var(--rust)">Terms of Service</a>.</label>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span class="btn-text">Send Message →</span>
+        <span class="spinner">Sending…</span>
+      </button>
+    </form>
+
+    <div class="success-msg" id="successMsg">
+      <div class="success-icon">✉️</div>
+      <div class="success-title">Message Sent Successfully!</div>
+      <div class="success-text">Thank you for reaching out. Our team will respond within 24 hours.</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAP PLACEHOLDER -->
+<div class="map-section">
+  <div class="map-placeholder">
+    <div class="map-pin">📍</div>
+    <div class="map-text">Jubilee Hills, Hyderabad</div>
+    <div class="map-sub">12, Fashion Street · Open Today 10 AM – 9 PM</div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-header">
+    <h2 class="faq-title">Frequently <em>Asked</em></h2>
+    <p class="faq-sub">Quick answers to our most common questions.</p>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">What is your return policy? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">We offer hassle-free returns within 30 days of delivery. Items must be unworn, with original tags attached. Simply visit your order history to initiate a return and receive a full refund or store credit.</div></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">How long does shipping take? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Standard delivery takes 3–5 business days across India. Express shipping (1–2 days) is available at checkout. Orders over ₹2,999 qualify for free standard shipping automatically.</div></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Do you offer international shipping? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Yes! We ship to 40+ countries. International orders typically arrive within 7–14 business days. Customs and import duties may apply depending on your location.</div></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">How do I find my size? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Each product page includes a detailed size guide with measurements in cm and inches. If you're between sizes, we recommend going up a size. Our team is also happy to provide personalised sizing advice.</div></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Can I modify or cancel my order? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Orders can be modified or cancelled within 2 hours of placement. After that, the order enters our fulfilment process. Contact us immediately via WhatsApp for the fastest response.</div></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Do you have a loyalty programme? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Yes! Our Thread Rewards programme earns you points on every purchase, which can be redeemed for discounts. Sign up for a free account to start earning immediately.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-bottom">
+    <span>© 2025 Vogue Thread. All rights reserved.</span>
+    <div class="social-links">
+      <a href="#">Instagram</a>
+      <a href="#">Pinterest</a>
+      <a href="#">Twitter</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  let currentRating = 0;
+
+  function selectTopic(btn) {
+    document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function setRating(val) {
+    currentRating = val;
+    document.querySelectorAll('.rating-star').forEach((s, i) => {
+      s.classList.toggle('active', i < val);
+    });
+  }
+
+  // Hover stars
+  document.querySelectorAll('.rating-star').forEach((s, i) => {
+    s.addEventListener('mouseenter', () => {
+      document.querySelectorAll('.rating-star').forEach((r, j) => r.style.color = j <= i ? 'var(--warm)' : '');
+    });
+    s.addEventListener('mouseleave', () => {
+      document.querySelectorAll('.rating-star').forEach((r, j) => r.style.color = j < currentRating ? 'var(--warm)' : '');
+    });
+  });
+
+  function toggleFaq(item) {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Form submit
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Basic validation
+    const required = ['firstName', 'lastName', 'email', 'message'];
+    let valid = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) { el.style.borderColor = 'var(--rust)'; valid = false; }
+      else el.style.borderColor = '';
+    });
+    if (!document.getElementById('privacy').checked) { alert('Please agree to the Privacy Policy to continue.'); return; }
+    if (!valid) { return; }
+
+    const btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.classList.remove('loading');
+      this.style.display = 'none';
+      document.getElementById('successMsg').classList.add('show');
+    }, 1800);
+  });
+
+  // Input focus clear error style
+  document.querySelectorAll('input, textarea').forEach(el => {
+    el.addEventListener('input', () => el.style.borderColor = '');
+  });
+</script>
+</body>
+</html>
